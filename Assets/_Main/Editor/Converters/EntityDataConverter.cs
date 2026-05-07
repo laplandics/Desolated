@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using Constant;
 using Data;
+using Entity.Ability;
 
-namespace EditorTools
+namespace EditorTools.DataConverter
 {
     public class EntityDataConverter : BaseConverter
     {
@@ -16,6 +19,16 @@ namespace EditorTools
             state.ID = entity.id;
             state.Position = entity.transform.position;
             state.Rotation = entity.transform.eulerAngles;
+
+            var entityAbilities = new Dictionary<EntityModules, string>();
+            foreach (var ability in entity.GetComponents<BaseModule>())
+            {
+                var key = ability.ModuleType;
+                var value = ability.ParseToString();
+                entityAbilities.Add(key, value);
+            }
+
+            state.Modules = entityAbilities;
             
             return state;
         }

@@ -11,12 +11,14 @@ namespace UIElement
         
         protected override void OnBind()
         {
-            
+            playButton.onClick.AddListener(OnPlayButtonClicked);
         }
+
+        private void OnPlayButtonClicked() => Vm.PlayGame();
 
         protected override void OnUnBind()
         {
-            
+            playButton.onClick.RemoveListener(OnPlayButtonClicked);
         }
     }
 }

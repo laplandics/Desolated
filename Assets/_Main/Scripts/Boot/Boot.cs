@@ -22,7 +22,7 @@ namespace Boot
             G.Register(new UI());
             G.Register(new Inputs());
             G.Register(new Scenes());
-            G.Register(new Managers());
+            G.Register(new Services());
             G.Register(new Coroutines());
             G.Register(new DataProvider());
             
@@ -50,6 +50,9 @@ namespace Boot
 
         private IEnumerator LoadScene(SceneParams loadParams)
         {
+            yield return G.Resolve<Services>().OnSceneBeginLoad();
+            Main.CurrentSceneParams.Value = loadParams;
+            
             yield return new WaitForSeconds(2f);
             
             var sceneName = loadParams.scene.ToString();
@@ -61,13 +64,21 @@ namespace Boot
             var onExit = new Subject<SceneParams>();
             onExit.Subscribe(sp => G.Resolve<Coroutines>().Start(UnloadScene(sp)));
             
-            G.Resolve<Coroutines>().Start(sceneBoot.Boot(onExit, loadParams));
+            yield return G.Resolve<Services>().OnSceneEndLoad();
+
+            yield return G.Resolve<Services>().OnSceneBeginBoot();
+            yield return G.Resolve<Coroutines>().Start(sceneBoot.Boot(onExit, loadParams));
+            yield return G.Resolve<Services>().OnSceneEndBoot();
         }
         
         private IEnumerator UnloadScene(SceneParams unloadParams)
         {
+            yield return G.Resolve<Services>().OnSceneBeginUnload();
+            
             G.Resolve<UI>().OpenScreen(new LoadingScreenVm());
             yield return G.Resolve<Scenes>().ToBoot();
+            
+            yield return G.Resolve<Services>().OnSceneEndUnload();
             G.Resolve<Coroutines>().Start(LoadScene(unloadParams));
         }
 

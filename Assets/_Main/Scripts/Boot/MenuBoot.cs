@@ -9,7 +9,7 @@ namespace Boot
     {
         public override IEnumerator Boot(Subject<SceneParams> onExit, SceneParams sceneParams)
         {
-            G.Resolve<UI>().OpenScreen(new MainMenuVm());
+            G.Resolve<UI>().OpenScreen(new MainMenuVm(onExit));
             
             yield return null;
         }

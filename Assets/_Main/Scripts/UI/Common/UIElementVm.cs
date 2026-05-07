@@ -22,6 +22,7 @@ namespace UIElement
             var binderObj = Object.Instantiate(prefab, root, false);
             var binder = binderObj.GetComponent<IUIElementBinder>();
             Binder = binder ?? throw new Exception($"Can't find IUIElementBinder {BinderKey}");
+            Binder.Bind(this);
         }
 
         public virtual void OnRemove() { Binder.UnBind(); Binder = null; }

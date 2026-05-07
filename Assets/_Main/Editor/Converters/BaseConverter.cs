@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
-namespace EditorTools
+namespace EditorTools.DataConverter
 {
     public abstract class BaseConverter : ScriptableObject
     {

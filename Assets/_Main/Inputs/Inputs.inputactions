@@ -3,28 +3,28 @@
     "name": "Inputs",
     "maps": [
         {
-            "name": "ControllersMap",
+            "name": "Player",
             "id": "9a045a44-38a5-4857-8042-bf4d670e4af0",
             "actions": [
                 {
-                    "name": "Action",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "289f17a2-38d4-4728-bb41-9b687d964064",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "efbedf45-da04-4215-864b-8c44ea662e7c",
+                    "id": "2c21db76-1ef8-4a8c-a297-3da1ff83fb51",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Action",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -3,7 +3,7 @@ using Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace EditorTools
+namespace EditorTools.DataConverter
 {
     [CreateAssetMenu(fileName = "StageDataConverter", menuName = "Editor/Converters/StageDataConverter")]
     public class StageDataConverter : BaseConverter

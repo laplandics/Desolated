@@ -3,7 +3,7 @@ using Constant;
 using Data;
 using UnityEngine;
 
-namespace EditorTools
+namespace EditorTools.DataConverter
 {
     [CreateAssetMenu(fileName = "AppDataConverter", menuName = "Editor/Converters/AppDataConverter")]
     public class AppDataConverter : BaseConverter
@@ -11,6 +11,7 @@ namespace EditorTools
         public int fps;
         public int vSync;
         public SceneNames loadScene;
+        public CameraTypes firstCameraType;
         
         protected override string Label => nameof(Data.State.App);
 
@@ -21,6 +22,7 @@ namespace EditorTools
             state.VSync = vSync;
             state.FirstSceneParams = new SceneParams();
             state.FirstSceneParams.scene = loadScene;
+            state.FirstSceneParams.cameraType = firstCameraType;
             return state;
         }
     }
