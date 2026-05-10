@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Service;
 
-namespace Service { public abstract class BaseService { } }
+namespace Service { public abstract class ServiceBase { } }
 
+public interface IOnProjectBeginLoadService { public IEnumerator OnProjectBeginLoad(); }
+public interface IOnProjectEndLoadService { public IEnumerator OnProjectEndLoad(); }
 public interface IOnSceneBeginLoadService { public IEnumerator OnSceneBeginLoad(); }
 public interface IOnSceneEndLoadService { public IEnumerator OnSceneEndLoad(); }
 public interface IOnSceneBeginBootService { public IEnumerator OnSceneBeginBoot(); }
@@ -16,6 +18,8 @@ namespace Utils
 {
     public class Services
     {
+        private readonly HashSet<IOnProjectBeginLoadService> _onProjectBeginLoadServices = new();
+        private readonly HashSet<IOnProjectEndLoadService> _onProjectEndLoadServices = new();
         private readonly HashSet<IOnSceneBeginLoadService> _onSceneBeginLoadServices = new();
         private readonly HashSet<IOnSceneEndLoadService> _onSceneEndLoadServices = new();
         private readonly HashSet<IOnSceneBeginBootService> _onSceneBeginBootServices = new();
@@ -27,13 +31,19 @@ namespace Utils
         
         private void CacheServices()
         {
-            var serviceTypes = Tools.ReflectionTool.GetSubclasses<BaseService>();
+            var serviceTypes = Tools.ReflectionTool.GetSubclasses<ServiceBase>();
             foreach (var t in serviceTypes)
             {
-                var instance = Activator.CreateInstance(t) as BaseService;
+                var instance = Activator.CreateInstance(t) as ServiceBase;
                 var interfaces = t.GetInterfaces();
                 foreach (var i in interfaces)
                 {
+                    if (i == typeof(IOnProjectBeginLoadService))
+                    { _onProjectBeginLoadServices.Add(instance as IOnProjectBeginLoadService); continue; }
+
+                    if (i == typeof(IOnProjectEndLoadService))
+                    { _onProjectEndLoadServices.Add(instance as IOnProjectEndLoadService); continue; }
+                    
                     if (i == typeof(IOnSceneBeginLoadService))
                     { _onSceneBeginLoadServices.Add(instance as IOnSceneBeginLoadService); continue;}
 
@@ -53,6 +63,18 @@ namespace Utils
                     { _onSceneEndUnloadServices.Add(instance as IOnSceneEndUnloadService); continue; }
                 }
             }
+        }
+
+        public IEnumerator OnProjectBeginLoad()
+        {
+            foreach (var service in _onProjectBeginLoadServices)
+            { yield return service.OnProjectBeginLoad(); yield return null; }
+        }
+
+        public IEnumerator OnProjectEndLoad()
+        {
+            foreach (var service in _onProjectEndLoadServices)
+            { yield return service.OnProjectEndLoad(); yield return null; }
         }
         
         public IEnumerator OnSceneBeginLoad()

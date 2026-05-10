@@ -17,7 +17,7 @@ namespace UIElement
         
         public void OnAdd(RectTransform root)
         {
-            var prefab = Resources.Load<GameObject>($"Prefab/UI/{BinderKey}");
+            var prefab = R.Get<GameObject>($"Prefab/UI/{BinderKey}");
             if (prefab == null) throw new Exception($"Can't find prefab {BinderKey}");
             var binderObj = Object.Instantiate(prefab, root, false);
             var binder = binderObj.GetComponent<IUIElementBinder>();

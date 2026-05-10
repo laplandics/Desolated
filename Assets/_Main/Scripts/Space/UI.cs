@@ -25,11 +25,11 @@ namespace Space
         
         public UI()
         {
-            var prefab = R.UiRootPrefab;
+            var prefab = R.UIRootPrefab;
             var root = Object.Instantiate(prefab);
             root.name = "[UI]";
             Object.DontDestroyOnLoad(root);
-            _root = root;
+            _root = root.GetComponent<UIRoot>();
         }
 
         public void OpenScreen(UIElementVm screenVm)

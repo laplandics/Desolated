@@ -160,9 +160,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1582512839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9898333102d44d98715910e911970cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 587bf7770a82472eb267f60ab9f31c7c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boot.MenuBoot
+  m_EditorClassIdentifier: Assembly-CSharp::Boot.SceneBoot
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

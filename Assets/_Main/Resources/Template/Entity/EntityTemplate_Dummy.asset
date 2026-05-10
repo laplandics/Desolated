@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e687c58b194539a3e9bb0fe25561f5, type: 3}
+  m_Name: EntityTemplate_Dummy
+  m_EditorClassIdentifier: Assembly-CSharp::Template.EntityTemplate
+  prefab: {fileID: 6986281417021046137, guid: e9b69d6a3bc86504188419cc036e491b, type: 3}
+  health: 10
+  speed: 3.5
+  systems:
+  - {fileID: 11400000, guid: 25364b9b5c33f9f46aeb7aca1216153d, type: 2}
+  statuses: []
+  entityState:
+    id: 
+    key: Dummy
+    prefabPath: Prefab/World/Entity/Dummy
+    initialized: 0
+    health: 10
+    speed: 3.5
+    systems:
+    - System/MovementSystem
+    statuses: []
+    currentPosition: {x: 0, y: 0, z: 0}
+    currentRotation: {x: 0, y: 0, z: 0}
+    targetPosition: {x: 0, y: 0, z: 0}
+    targetRotation: {x: 0, y: 0, z: 0}

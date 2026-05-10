@@ -1,35 +1,39 @@
-﻿using System.Collections;
-using Constant;
+﻿using System;
+using System.Collections;
+using Config;
+using R3;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Service
 {
-    public class CameraService : BaseService, IOnSceneBeginLoadService, IOnSceneBeginBootService
+    public class CameraService : ServiceBase, IOnSceneBeginLoadService, IOnSceneEndLoadService
     {
-        public Camera CurrentMain { get; private set; }
+        private IDisposable _onSceneCameraChanged;
         
         public IEnumerator OnSceneBeginLoad()
         {
-            InstantiateCamera(CameraTypes.DefaultCamera);
+            _onSceneCameraChanged?.Dispose();
+            InstantiateCamera(R.CameraConfigDefault);
             yield return null;
         }
 
-        public IEnumerator OnSceneBeginBoot()
+        public IEnumerator OnSceneEndLoad()
         {
-            var sceneParams = Main.CurrentSceneParams;
-            InstantiateCamera(sceneParams.Value.cameraType);
+            var cameraConfigRProperty = Main.CurrentSceneConfig.Value.SceneCamera;
+            _onSceneCameraChanged = cameraConfigRProperty.Subscribe(InstantiateCamera);
             yield return null;
         }
 
-        private void InstantiateCamera(CameraTypes cameraType)
+        private void InstantiateCamera(CameraConfig cameraConfig)
         {
-            var camPrefab = Resources.Load<GameObject>($"Prefab/World/{cameraType.ToString()}");
+            var camPrefab = R.Get<GameObject>(cameraConfig.PrefabPath);
             var cam = Object.Instantiate(camPrefab);
             cam.name = "MainCamera";
-            cam.transform.position = Vector3.zero;
-            cam.transform.rotation = Quaternion.identity;
-            CurrentMain = cam.GetComponent<Camera>();
-            Main.CurrentMainCamera.Value = CurrentMain;
+            cam.transform.position = cameraConfig.InitialPosition;
+            cam.transform.rotation = Quaternion.Euler(cameraConfig.InitialRotation);
+            var current = cam.GetComponent<Camera>();
+            Main.CurrentMainCamera.Value = current;
         }
     }
 }
