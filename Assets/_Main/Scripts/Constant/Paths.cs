@@ -11,6 +11,7 @@ namespace Constant
         public static string CameraConfigDefaultPath => "Config/Cameras/CameraConfig_Default";
         public static string PlayerConfigPath => "Config/Player/PlayerConfig";
         public static string AppConfigPath => "Config/Preferences/AppConfig";
+        public static string GameConfigPath => "Config/Preferences/GameConfig";
         public static string SceneConfigMenuPath => "Config/Scenes/SceneConfig_Menu";
         public static string SceneConfigShelterPath => "Config/Scenes/SceneConfig_Shelter";
         public static string GameScreenPrefabPath => "Prefab/UI/GameScreen";
@@ -20,6 +21,7 @@ namespace Constant
         public static string DefaultCameraPrefabPath => "Prefab/World/Camera/DefaultCamera";
         public static string DummyPrefabPath => "Prefab/World/Entity/Dummy";
         public static string MovementSystemPath => "System/MovementSystem";
+        public static string PlayerControllerSystemPath => "System/PlayerControllerSystem";
         public static string EntityTemplateDummyPath => "Template/Entity/EntityTemplate_Dummy";
     }
 }

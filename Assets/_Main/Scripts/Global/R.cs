@@ -14,6 +14,7 @@ public static class R
     public static CameraConfig CameraConfigDefault => Resources.Load<CameraConfig>("Config/Cameras/CameraConfig_Default");
     public static PlayerConfig PlayerConfig => Resources.Load<PlayerConfig>("Config/Player/PlayerConfig");
     public static AppConfig AppConfig => Resources.Load<AppConfig>("Config/Preferences/AppConfig");
+    public static GameConfig GameConfig => Resources.Load<GameConfig>("Config/Preferences/GameConfig");
     public static SceneConfig SceneConfigMenu => Resources.Load<SceneConfig>("Config/Scenes/SceneConfig_Menu");
     public static SceneConfig SceneConfigShelter => Resources.Load<SceneConfig>("Config/Scenes/SceneConfig_Shelter");
 
@@ -27,5 +28,6 @@ public static class R
     public static EntityTemplate EntityTemplateDummy => Resources.Load<EntityTemplate>("Template/Entity/EntityTemplate_Dummy");
 
     public static MovementSystem MovementSystem => Resources.Load<MovementSystem>("System/MovementSystem");
+    public static PlayerControllerSystem PlayerControllerSystem => Resources.Load<PlayerControllerSystem>("System/PlayerControllerSystem");
 
 }

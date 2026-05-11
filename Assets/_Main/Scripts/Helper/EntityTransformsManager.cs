@@ -15,15 +15,25 @@ namespace Helper.EntityManagement
         public void ApplyPosition(Vector3 position)
         {
             _owner.transform.position = position;
-            _owner.state.currentPosition = position;
+            SetCurrentPosition(position);
         }
 
         public void ApplyRotation(Vector3 rotation)
         {
             _owner.transform.eulerAngles = rotation;
-            _owner.state.currentRotation = rotation;
+            SetCurrentRotation(rotation);
         }
 
+        public void SetCurrentPosition(Vector3 position)
+        {
+            _owner.state.currentPosition = position;
+        }
+
+        public void SetCurrentRotation(Vector3 rotation)
+        {
+            _owner.state.currentRotation = rotation;
+        }
+        
         public void SetTargetPosition(Vector3 position)
         {
             _owner.state.targetPosition = position;

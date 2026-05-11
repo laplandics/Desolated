@@ -1,5 +1,6 @@
 ﻿using System.Collections;
-using Config;
+using System.Linq;
+using Data.State;
 using Utils;
 using WorldObject;
 
@@ -11,38 +12,31 @@ namespace Service
         
         public IEnumerator OnSceneEndBoot()
         {
-            var sceneConfig = Main.CurrentSceneConfig.Value;
-            var lastVisitedSceneConfig = Main.CurrentPlayerConfig
-                .Value.LastVisitedStageConfig.Value;
-
-            if (sceneConfig == lastVisitedSceneConfig)
-            { SpawnPlayer(sceneConfig); }
+            var scene = Main.CurrentSceneConfig.Value;
+            var player = Main.CurrentPlayerConfig.Value;
+            if (scene == player.LastVisitedStageConfig.Value)
+            {
+                var playerEState = player.PlayerEntityState;
+                var scenePlayerEState = scene.Entities.FirstOrDefault(e => e.id == playerEState.id);
+                if (scenePlayerEState == null) SpawnPlayer(playerEState);
+            }
             
             yield return null;
         }
+
+        private void SpawnPlayer(EntityState playerEState)
+        { G.Resolve<Entities>().Builder.New(playerEState).Build(out _playerEntity); }
 
         public IEnumerator OnSceneBeginUnload()
         {
-            if (_playerEntity != null)
-            { DespawnPlayer(); }
-            
+            DespawnPlayer();
             yield return null;
         }
 
-        private void SpawnPlayer(SceneConfig currentScene)
+        private void DespawnPlayer()
         {
-            var playerConfig = Main.CurrentPlayerConfig.Value;
-            var playerEState = playerConfig.PlayerEntityState;
-            if (!playerEState.initialized)
-            {
-                var playerInfo = currentScene.PlayerInfo.Value;
-                playerEState.currentPosition = playerInfo.initialPosition;
-                playerEState.currentRotation = playerInfo.initialRotation;
-            }
-            
-            G.Resolve<Entities>().Builder.New(playerEState).Build(out _playerEntity);
+            if (_playerEntity == null) return;
+            G.Resolve<Entities>().Builder.DestroyEntity(_playerEntity);
         }
-
-        private void DespawnPlayer() => G.Resolve<Entities>().Builder.DestroyEntity(_playerEntity);
     }
 }

@@ -7,8 +7,6 @@ namespace Config
     public class CameraConfig : ConfigBase<CameraData>
     {
         public string PrefabPath => data.prefabPath;
-        public Vector3 InitialPosition => data.initialPosition;
-        public Vector3 InitialRotation => data.initialRotation;
         
         protected override void OnRefresh()
         { data.prefabPath = "Prefab/World/Camera/" + name.Split('_')[1] + "Camera"; }

@@ -78,14 +78,8 @@ namespace Config
         {
             Entities = new ObservableList<EntityState>();
             data.entities.ForEach(entity => Entities.Add(entity));
-            Entities.ObserveAdd().Subscribe(e => AddEntityToData(e.Value));
+            Entities.ObserveAdd().Subscribe(e => data.entities.Add(e.Value));
             Entities.ObserveRemove().Subscribe(e => data.entities.Remove(e.Value));
-        }
-
-        private void AddEntityToData(EntityState entity)
-        {
-            if (entity.key == "Player") return;
-            Entities.Add(entity);
         }
     }
 }

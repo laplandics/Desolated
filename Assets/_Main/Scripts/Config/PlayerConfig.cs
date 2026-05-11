@@ -4,6 +4,7 @@ using Data.Config;
 using Data.State;
 using R3;
 using Template;
+using UnityEditor;
 using UnityEngine;
 
 namespace Config
@@ -11,7 +12,7 @@ namespace Config
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Config/Player")]
     public class PlayerConfig : ConfigBase<PlayerData>
     {
-        public EntityState PlayerEntityState {get; private set;}
+        public EntityState PlayerEntityState => data.playerEntityState;
         public ReactiveProperty<SceneConfig> LastVisitedStageConfig { get; private set; }
         
         [Space][SerializeField] private EntityTemplate playerEntityTemplate;
@@ -20,12 +21,16 @@ namespace Config
         {
             if (string.IsNullOrEmpty(data.lastVisitedStageConfigPath))
             { data.lastVisitedStageConfigPath = Paths.SceneConfigShelterPath; }
-
+            var playerController = R.PlayerControllerSystem;
+            var playerControllerFullPath = AssetDatabase.GetAssetPath(playerController);
+            var playerControllerPath = Tools.PathHelper.AssetPathToResourcePath(playerControllerFullPath);
+            
             data.playerEntityState = null;
             if (playerEntityTemplate != null)
             {
                 data.playerEntityState = playerEntityTemplate.State;
                 data.playerEntityState.statuses.Add("PlayerStatus");
+                data.playerEntityState.systems.Add(playerControllerPath);
                 data.playerEntityState.id = "Player: " + Guid.NewGuid();
                 data.playerEntityState.key = "Player";
             }
@@ -33,8 +38,6 @@ namespace Config
 
         public override void Init()
         {
-            PlayerEntityState = data.playerEntityState;
-            
             var lastVisitedStageConfigPath = data.lastVisitedStageConfigPath;
             var lastVisitedStageConfig = R.Get<SceneConfig>(lastVisitedStageConfigPath);
             LastVisitedStageConfig = new ReactiveProperty<SceneConfig>(lastVisitedStageConfig);

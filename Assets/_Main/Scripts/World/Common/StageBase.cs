@@ -40,11 +40,19 @@ namespace WorldObject
         {
             var entities = FindObjectsByType<Entity>();
             var entity = entities.FirstOrDefault(e => e.state.id == eState.id);
-            if (entity == null) return;
+            if (entity == null) entity = SpawnNewEntity(eState);
             entity.Bind(eState);
             EntitiesMap.TryAdd(eState.id, entity);
             
             G.Resolve<Entities>().Storage.Add(entity);
+        }
+
+        private Entity SpawnNewEntity(EntityState eState)
+        {
+            G.Resolve<Entities>().Builder
+                .New(eState)
+                .BuildSilent(out var entity);
+            return entity;
         }
 
         private void UnbindEntity(EntityState eState)

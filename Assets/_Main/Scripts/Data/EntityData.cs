@@ -11,7 +11,6 @@ namespace Data.State
         [MyReadOnly] public string id;
         [MyReadOnly] public string key;
         [MyReadOnly] public string prefabPath;
-        [MyReadOnly] public bool initialized;
         
         [Space]
         

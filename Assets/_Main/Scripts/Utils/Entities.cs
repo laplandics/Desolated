@@ -67,13 +67,20 @@ namespace Utils
             
             public void Build(out Entity entity)
             {
+                var newEntity = Build();
+                Main.CurrentSceneConfig.Value.Entities.Add(_buildingState);
+                entity = newEntity;
+            }
+
+            public void BuildSilent(out Entity entity) => entity = Build();
+
+            private Entity Build()
+            {
                 var key = _buildingState.key;
                 var entityObject = new GameObject(key);
                 var entityScript = entityObject.AddComponent<Entity>();
                 entityScript.state = _buildingState;
-                
-                Main.CurrentSceneConfig.Value.Entities.Add(_buildingState);
-                entity = entityScript;
+                return entityScript;
             }
             
             public void DestroyEntity(Entity entity)

@@ -1,5 +1,6 @@
 using System.Collections;
 using Config;
+using DebugTools;
 using R3;
 using Space;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace Boot
             G.Register(new UI());
             G.Register(new Inputs());
             G.Register(new Scenes());
+            G.Register(new Systems());
+            G.Register(new Debugger());
             G.Register(new Entities());
             G.Register(new Services());
             G.Register(new Coroutines());

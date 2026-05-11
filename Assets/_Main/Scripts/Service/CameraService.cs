@@ -29,10 +29,12 @@ namespace Service
         {
             var camPrefab = R.Get<GameObject>(cameraConfig.PrefabPath);
             var cam = Object.Instantiate(camPrefab);
+            
             cam.name = "MainCamera";
-            cam.transform.position = cameraConfig.InitialPosition;
-            cam.transform.rotation = Quaternion.Euler(cameraConfig.InitialRotation);
+            
             var current = cam.GetComponent<Camera>();
+            if (current == null) current = cam.GetComponentInParent<Camera>();
+            
             Main.CurrentMainCamera.Value = current;
         }
     }

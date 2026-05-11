@@ -29,21 +29,18 @@ namespace WorldObject
         
         public void Bind(EntityState setState)
         {
+            SystemsManager = new EntitySystemsManager(this);
+            StatusesManager = new EntityStatusesManager(this);
+            TransformsManager = new EntityTransformsManager(this);
+            
             state = setState;
             
-            StatusesManager = new EntityStatusesManager(this);
             state.statuses.ForEach(StatusesManager.AddStatus);
-            
-            SystemsManager = new EntitySystemsManager(this);
             state.systems.ForEach(SystemsManager.AddSystem);
-            
-            TransformsManager = new EntityTransformsManager(this);
             TransformsManager.ApplyPosition(state.currentPosition);
             TransformsManager.ApplyRotation(state.currentRotation);
             
             UpdateVisual(state.prefabPath);
-            
-            state.initialized = true;
         }
         
         public void Unbind()
@@ -67,12 +64,11 @@ namespace WorldObject
         public EntityState GenerateState()
         {
             gameObject.layer = LayerMask.NameToLayer("Entity");
-            
-            if (template == null && state == null)
-            { throw new Exception($"{name} has no state or template to initialize from"); }
-            
-            if (state is not { initialized: true })
-            { state = template.State; state.initialized = true; }
+
+            if (template == null)
+            { throw new Exception($"{name} has no template to initialize from"); }
+
+            state = template.State;
             
             state.currentPosition = transform.position;
             state.currentRotation = transform.eulerAngles;

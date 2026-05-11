@@ -21,21 +21,8 @@ MonoBehaviour:
       type: {class: SceneData, ns: Data.Config, asm: Assembly-CSharp}
       data:
         sceneScreen: GameScreenVm
-        sceneCameraConfigPath: Config/Cameras/CameraConfig_Default
+        sceneCameraConfigPath: Config/Cameras/CameraConfig_Explore
         playerInfo:
-          initialPosition: {x: 1, y: 0, z: 1}
+          initialPosition: {x: 0, y: 0, z: 0}
           initialRotation: {x: 0, y: 0, z: 0}
-        entities:
-        - id: 'Dummy: 90979657-eecd-479e-a0ae-6b792cb6f2eb'
-          key: Dummy
-          prefabPath: Prefab/World/Entity/Dummy
-          initialized: 1
-          health: 10
-          speed: 3.5
-          systems:
-          - System/MovementSystem
-          statuses: []
-          currentPosition: {x: 0, y: 0, z: 0}
-          currentRotation: {x: -0, y: 0, z: 0}
-          targetPosition: {x: 0, y: 0, z: 0}
-          targetRotation: {x: 0, y: 0, z: 0}
+        entities: []

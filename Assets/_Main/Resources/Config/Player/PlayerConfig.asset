@@ -14,6 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Config.PlayerConfig
   data:
     rid: 575357067449860156
+  playerEntityState:
+    id: 'Player: 79971c46-34de-44a5-bb11-dd7c0021119c'
+    key: Player
+    prefabPath: Prefab/World/Entity/Dummy
+    health: 10
+    speed: 3.5
+    systems:
+    - System/MovementSystem
+    - System/PlayerControllerSystem
+    statuses:
+    - PlayerStatus
+    currentPosition: {x: 0, y: 0, z: 0}
+    currentRotation: {x: 0, y: 0, z: 0}
+    targetPosition: {x: 0, y: 0, z: 0}
+    targetRotation: {x: 0, y: 0, z: 0}
   playerEntityTemplate: {fileID: 11400000, guid: e4c2fc46e659e914a80b7ee16ee437f6, type: 2}
   references:
     version: 2
@@ -23,15 +38,16 @@ MonoBehaviour:
       data:
         lastVisitedStageConfigPath: Config/Scenes/SceneConfig_Shelter
         playerEntityState:
-          id: 'Player: b38a7a14-ced0-4e3e-b290-977be90c1080'
+          id: 'Player: 79971c46-34de-44a5-bb11-dd7c0021119c'
           key: Player
           prefabPath: Prefab/World/Entity/Dummy
+          health: 10
+          speed: 3.5
           systems:
           - System/MovementSystem
+          - System/PlayerControllerSystem
           statuses:
           - PlayerStatus
-          health: 10
-          speed: 1
           currentPosition: {x: 0, y: 0, z: 0}
           currentRotation: {x: 0, y: 0, z: 0}
           targetPosition: {x: 0, y: 0, z: 0}

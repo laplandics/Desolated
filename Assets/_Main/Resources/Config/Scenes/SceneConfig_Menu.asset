@@ -22,4 +22,7 @@ MonoBehaviour:
       data:
         sceneScreen: MainMenuScreenVm
         sceneCameraConfigPath: Config/Cameras/CameraConfig_Default
+        playerInfo:
+          initialPosition: {x: 0, y: 0, z: 0}
+          initialRotation: {x: 0, y: 0, z: 0}
         entities: []
